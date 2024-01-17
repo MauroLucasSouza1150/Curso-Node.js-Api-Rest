@@ -1,0 +1,15 @@
+// 10 - Infranstrutura 
+// obs: tem que installar o mysql no terminal "npm install mysql";
+import mysql from "mysql";
+
+const conexao = mysql.createConnection({
+    host: "localhost",
+    port: 3306,
+    user: "root",
+    password: "root",
+    database: "bd_copa"
+})
+
+conexao.connect();
+
+export default conexao;
