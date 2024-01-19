@@ -1,66 +1,30 @@
-import conexao from "../database/conexao.js";
+import { consulta } from "../database/conexao.js";
 
 class SelecaoRepository {
     // CRUD
     create(selecao) {
         const sql = "INSERT INTO selecoes SET ?;"
-        return new Promise((resolve, reject) => {
-            conexao.query(sql, selecao, (erro, resultado) => {
-                if(erro) return reject('Não foi possível Cadastrar Seleção')
-                // Fazer o parse dos resultados
-                const row = JSON.parse(JSON.stringify(resultado))
-                return resolve(row)
-            })
-        })
+        return consulta(sql, selecao, 'Seleção não Cadastrada !')
     }
 
     findAll() {
         const sql = "SELECT * from selecoes;"
-        return new Promise((resolve, reject) => {
-            conexao.query(sql, (erro, resultado) => {
-                if(erro) return reject('Não foi possível Localizar')
-                // Fazer o parse dos resultados
-                const row = JSON.parse(JSON.stringify(resultado))
-                return resolve(row)
-            })
-        })
+        return consulta(sql, 'Não foi possível localizar selecao!')
     }
 
     findById(id) {
         const sql = "SELECT * from selecoes WHERE id=?;"
-        return new Promise((resolve, reject) => {
-            conexao.query(sql, id, (erro, resultado) => {
-                if(erro) return reject('Não foi possível Buscar Seleção')
-                // Fazer o parse dos resultados
-                const row = JSON.parse(JSON.stringify(resultado))
-                return resolve(row)
-            })
-        })
-        
+        return consulta(sql, id, 'Seleção não Encontrada !')
     }
 
     update(selecao, id) {
         const sql = "UPDATE selecoes SET ? WHERE id=?;"
-        return new Promise((resolve, reject) => {
-            conexao.query(sql, [selecao, id], (erro, resultado) => {
-                if(erro) return reject('Não foi possível Atualizar Seleção')
-                // Fazer o parse dos resultados
-                const row = JSON.parse(JSON.stringify(resultado))
-                return resolve(row)
-            })
-        })
+        return consulta(sql, [selecao, id], 'Não foi possível Atualizar Seleção !')
     }
 
     delete(id) {
         const sql = "DELETE from selecoes WHERE id=?;"
-        return new Promise((resolve, reject) => {
-            conexao.query(sql, id, (erro, resultado) => {
-                if(erro) return reject('Não foi possível Deletar Seleção')
-                // Fazer o parse dos resultados
-                const row = JSON.parse(JSON.stringify(resultado))
-                return resolve(row)
-            })
-        })
+        return consulta(sql, id, 'Não foi possível Apagar Seleção!')
     }
 
 }
